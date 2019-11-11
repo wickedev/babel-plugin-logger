@@ -10,3 +10,4 @@ wallaby.js
 webpack.config.js
 *.lock
 coverage
+e2e
