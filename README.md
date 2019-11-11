@@ -8,9 +8,7 @@
 
 ```bash
 npm i -D babel-plugin-logger
-```
-or
-```bash
+# or
 yarn add -D babel-plugin-logger
 ```
 
