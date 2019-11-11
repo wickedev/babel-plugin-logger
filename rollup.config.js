@@ -1,6 +1,7 @@
 import external from 'rollup-plugin-peer-deps-external'
 import typescript from 'rollup-plugin-typescript2'
 import resolve from 'rollup-plugin-node-resolve'
+import builtins from 'builtin-modules'
 import commonjs from 'rollup-plugin-commonjs'
 import pkg from './package.json'
 
@@ -40,4 +41,5 @@ export default {
         resolve(),
         commonjs(),
     ],
+    external: builtins,
 }

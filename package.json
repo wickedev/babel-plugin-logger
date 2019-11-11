@@ -15,7 +15,8 @@
         "lint": "eslint --ext .ts,.tsx src",
         "test": "jest --colors --watchAll",
         "test:ci": "cross-env CI=true jest --colors --coverage",
-        "test:e2e": "jest --config=e2e/jest.json  --colors",
+        "test:e2e": "run-s build test:e2e-run",
+        "test:e2e-run": "jest --config=e2e/jest.json  --colors",
         "format": "prettier --write \"src/**/*\"",
         "prepare": "yarn run build"
     },
@@ -81,10 +82,12 @@
     },
     "devDependencies": {
         "@babel/helper-plugin-test-runner": "^7.1.0",
+        "@types/fs-extra": "^8.0.1",
         "@types/jest": "^24.0.22",
         "@types/node": "^12.12.7",
         "@typescript-eslint/eslint-plugin": "^2.6.1",
         "@typescript-eslint/parser": "^2.6.1",
+        "builtin-modules": "^3.1.0",
         "coverage": "^0.4.1",
         "coveralls": "^3.0.7",
         "cross-env": "^6.0.3",
@@ -111,6 +114,8 @@
     },
     "files": ["lib"],
     "dependencies": {
-        "@babel/helper-plugin-utils": "^7.0.0"
+        "@babel/helper-plugin-utils": "^7.0.0",
+        "@bugsnag/safe-json-stringify": "^5.0.0",
+        "fs-extra": "^8.1.0"
     }
 }
