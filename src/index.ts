@@ -1,3 +1,6 @@
-import message from '~/sub'
+import { declare } from '@babel/helper-plugin-utils'
 
-console.log(message)
+// @ts-ignore
+export default declare((api: any, options: any, dirname: any) => {
+    return {}
+})

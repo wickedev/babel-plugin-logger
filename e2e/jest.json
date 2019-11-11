@@ -1,0 +1,13 @@
+{
+    "preset": "ts-jest",
+    "testRegex": "/fixtures/.*/input.js$",
+    "rootDir": "./",
+    "automock": false,
+    "verbose": false,
+    "setupFilesAfterEnv": ["<rootDir>/index.ts"],
+    "globals": {
+        "ts-jest": {
+            "diagnostics": false
+        }
+    }
+}
