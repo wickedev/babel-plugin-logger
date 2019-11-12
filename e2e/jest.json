@@ -4,10 +4,5 @@
     "rootDir": "./",
     "automock": false,
     "verbose": false,
-    "setupFilesAfterEnv": ["<rootDir>/index.ts"],
-    "globals": {
-        "ts-jest": {
-            "diagnostics": false
-        }
-    }
+    "setupFilesAfterEnv": ["<rootDir>/index.ts"]
 }

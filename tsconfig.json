@@ -17,8 +17,6 @@
         "noImplicitAny": true,
         "strictNullChecks": true,
         "suppressImplicitAnyIndexErrors": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
         "baseUrl": ".",
         "paths": {
             "~/*": ["src/*"]

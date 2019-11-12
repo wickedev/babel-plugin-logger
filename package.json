@@ -10,7 +10,6 @@
     "jsnext:main": "lib/index.es.js",
     "typings": "lib/index.d.ts",
     "scripts": {
-        "start": "ts-node -r tsconfig-paths/register src/index.ts",
         "build": "rollup -c",
         "lint": "eslint --ext .ts,.tsx src",
         "test": "jest --colors --watchAll",
@@ -22,11 +21,6 @@
     },
     "jest": {
         "preset": "ts-jest",
-        "globals": {
-            "ts-jest": {
-                "diagnostics": false
-            }
-        },
         "testEnvironment": "node",
         "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
         "moduleNameMapper": {
@@ -43,26 +37,32 @@
         "src/**/*.{json,css}": ["prettier --write", "git add"]
     },
     "eslintConfig": {
-        "parser": "@typescript-eslint/parser",
-        "parserOptions": {
-            "project": "./tsconfig.json",
-            "tsconfigRootDir": "."
-        },
-        "plugins": ["@typescript-eslint", "prettier"],
-        "rules": {
-            "prettier/prettier": "error",
-            "ban-ts-ignore": 0,
-            "@typescript-eslint/ban-ts-ignore": 0,
-            "@typescript-eslint/no-explicit-any": 0,
-            "@typescript-eslint/no-non-null-assertion": 0,
-            "@typescript-eslint/no-misused-promises": 0
-        },
-        "extends": [
-            "plugin:@typescript-eslint/eslint-recommended",
-            "plugin:@typescript-eslint/recommended",
-            "plugin:@typescript-eslint/recommended-requiring-type-checking",
-            "prettier",
-            "prettier/@typescript-eslint"
+        "overrides": [
+            {
+                "files": ["src/*.ts", "src/*.tsx"],
+                "parser": "@typescript-eslint/parser",
+                "parserOptions": {
+                    "project": "./tsconfig.json",
+                    "tsconfigRootDir": "."
+                },
+                "plugins": ["@typescript-eslint", "prettier"],
+                "rules": {
+                    "prettier/prettier": "error",
+                    "@typescript-eslint/no-misused-promises": "warn",
+                    "@typescript-eslint/ban-ts-ignore": 0,
+                    "@typescript-eslint/no-unused-vars": 0,
+                    "@typescript-eslint/no-explicit-any": 0,
+                    "@typescript-eslint/no-non-null-assertion": 0,
+                    "@typescript-eslint/explicit-function-return-type": 0
+                },
+                "extends": [
+                    "plugin:@typescript-eslint/eslint-recommended",
+                    "plugin:@typescript-eslint/recommended",
+                    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+                    "prettier",
+                    "prettier/@typescript-eslint"
+                ]
+            }
         ]
     },
     "eslintIgnore": ["node_modules/**/*", "lib/**/*", "wallaby.js"],
