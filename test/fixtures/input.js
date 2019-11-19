@@ -1,3 +1,9 @@
+class A {
+    plus = (a, b) => {
+        return a + b
+    }
+}
+
 class B {
     division(a, b) {
         return a / b

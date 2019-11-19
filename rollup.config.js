@@ -41,5 +41,8 @@ export default {
         resolve(),
         commonjs(),
     ],
-    external: builtins,
+    external: [
+        ...builtins,
+        '@babel/types'
+    ],
 }

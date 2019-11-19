@@ -1,17 +1,13 @@
 import { declare } from '@babel/helper-plugin-utils'
-import fse from 'fs-extra'
-import stringify from '@bugsnag/safe-json-stringify'
+import { defaultOption, Options } from '~/options'
+import { visitorFactory } from '~/visitor'
 
-export default declare((api: any, options: any, dirname: any) => {
+export default declare((
+    { types: t }: any /* api */,
+    options: Options = defaultOption,
+    dirname: string,
+) => {
     return {
-        visitor: {
-            Function(path: any, state: any): void {
-                fse.mkdirpSync('./log')
-                fse.writeFileSync(
-                    './log/visitor.log',
-                    `path: ${path}, state: ${stringify(state, null, 4)}`,
-                )
-            },
-        },
+        visitor: visitorFactory(options),
     }
 })
