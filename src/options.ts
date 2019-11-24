@@ -1,34 +1,35 @@
-import { argsFormatter } from '~/utils'
+import { argsFormat, fileFormat } from '~/format'
 
-export interface File {
+export interface FileData {
     readonly path: string
     readonly name: string
     readonly line: number
 }
 
-export interface Function {
+export interface FunctionData {
     readonly name: string
     readonly args: string[]
 }
 
 export interface Options {
-    readonly printFile:
+    readonly printFile?:
         | {
               readonly path: boolean
               readonly line: boolean
           }
         | boolean
-    readonly group: boolean
-    readonly loggerTemplate: string
-    readonly formatTemplate: (file: File, func: Function) => string
+    readonly group?: boolean
+    readonly loggerTemplate?: string
+    readonly customTemplate?: (file: FileData, func: FunctionData) => string
 }
 
-export const defaultOption = {
+export const defaultOptions: Options = {
     printFile: true,
     group: true,
     loggerTemplate: 'console.log',
-    formatTemplate: (file: File, func: Function) =>
-        `'[${file.path}/${file.name}:${file.line}] ${func.name} called'` +
-        argsFormatter(func.args) +
-        `)`,
+    customTemplate: (file: FileData, func: FunctionData) =>
+        `'` +
+        fileFormat(file) +
+        `${func.name}() called'` +
+        argsFormat(func.args),
 }

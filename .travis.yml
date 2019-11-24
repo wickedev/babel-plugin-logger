@@ -11,4 +11,4 @@ cache:
 install: yarn
 
 # command to run tests
-script: yarn test:ci && yarn test:e2e && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+script: yarn test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

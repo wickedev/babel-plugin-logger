@@ -84,6 +84,7 @@
     },
     "eslintIgnore": [
         "test/fixtures/**/*",
+        "e2e/fixtures/**/*",
         "node_modules/**/*",
         "lib/**/*",
         "wallaby.js"
@@ -111,6 +112,7 @@
         "@babel/plugin-proposal-class-properties": "^7.7.0",
         "@babel/traverse": "^7.7.2",
         "@types/babel__core": "^7.1.3",
+        "@types/date-fns": "^2.6.0",
         "@types/fs-extra": "^8.0.1",
         "@types/jest": "^24.0.22",
         "@types/node": "^12.12.7",
@@ -149,10 +151,7 @@
         "@babel/helper-plugin-utils": "^7.0.0",
         "@babel/types": "^7.7.2",
         "@bugsnag/safe-json-stringify": "^5.0.0",
-        "@types/date-fns": "^2.6.0",
-        "@types/uuid": "^3.4.6",
         "date-fns": "^2.7.0",
-        "fs-extra": "^8.1.0",
-        "uuid": "^3.3.3"
+        "fs-extra": "^8.1.0"
     }
 }
