@@ -12,6 +12,36 @@ npm i -D babel-plugin-logger
 yarn add -D babel-plugin-logger
 ```
 
+## Setup
+
+```js
+// babel.config.js
+
+const {
+    defaultFileFormat,
+    defaultCallFormat,
+    defaultArgsFormat
+} = require('babel-plugin-logger/format')
+
+module.exports = function (api) {
+    return {
+        "plugins": [
+            ['logger', {
+                printFile: {
+                    path: true,
+                    line: true,
+                },
+                group: false,
+                loggerTemplate: 'console.log',
+                customTemplate: (file, func) =>
+                    defaultFileFormat(file) +
+                    defaultCallFormat(func) +
+                    defaultArgsFormat(func.args),
+            }]]
+    }
+}
+```
+
 ## License
 
 MIT © Ryan Yang

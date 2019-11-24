@@ -1,4 +1,8 @@
-import { argsFormat, fileFormat } from '~/format'
+import {
+    defaultArgsFormat,
+    defaultFileFormat,
+    defaultCallFormat,
+} from '~/format'
 
 export interface FileData {
     readonly path: string
@@ -28,8 +32,7 @@ export const defaultOptions: Options = {
     group: true,
     loggerTemplate: 'console.log',
     customTemplate: (file: FileData, func: FunctionData) =>
-        `'` +
-        fileFormat(file) +
-        `${func.name}() called'` +
-        argsFormat(func.args),
+        defaultFileFormat(file) +
+        defaultCallFormat(func) +
+        defaultArgsFormat(func.args),
 }
