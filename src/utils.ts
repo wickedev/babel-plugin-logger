@@ -25,8 +25,28 @@ export function getFunctionDeclarationName(
     return path?.node?.id?.name ?? 'unknown'
 }
 
+type Param = {
+    name: string
+    type: string
+    properties?: [
+        {
+            value?: { name?: string }
+        },
+    ]
+}
+
 export function getParamNames(path: NodePath<any>): string[] {
-    return (path.node.params as { name: string }[]).map(param => param.name)
+    return (path.node.params as Param[]).flatMap((param: Param) => {
+        if (param.type === 'ObjectPattern') {
+            return (
+                param?.properties!.map(
+                    property => property.value?.name ?? 'unknown',
+                ) ?? []
+            )
+        }
+
+        return [param.name]
+    })
 }
 
 export function getFileData(

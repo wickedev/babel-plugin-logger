@@ -8,4 +8,8 @@ function multiply(n) {
     return n * n
 }
 
+function plus({ a, b }) {
+    return a + b
+}
+
 function fun() {}

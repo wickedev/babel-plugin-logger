@@ -27,6 +27,14 @@ function multiply(n) {
     return n * n
 }
 
+function plus({
+  a,
+  b
+}) {
+  console.log('plus() called', 'with:', 'a = [' + a + '],', 'b = [' + b + ']');
+  return a + b;
+}
+
 function fun() {
     console.log('fun() called')
 }
