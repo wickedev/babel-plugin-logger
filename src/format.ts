@@ -15,22 +15,12 @@ export function defaultCallFormat(func: FunctionInfo) {
     return `'${func.name}() called'`
 }
 
-function objectFilter(arg: any): string {
-    if (typeof arg === 'object') {
-        const json = stringify(arg)
-        if (json.length < 20) {
-            return json
-        } else {
-            return arg.toString()
-        }
-    }
-
-    return arg
-}
-
 export function defaultArgsFormat(args: string[]) {
     const formatStr = args.map(
-        (arg, idx) => `'${arg} = [' + ${arg} + ']${insertComma(args, idx)}'`,
+        (arg, idx) =>
+            `'${arg} = [ ' + ${
+                typeof arg === 'object' ? 'object' : arg
+            } + ' ]${insertComma(args, idx)}'`,
     )
     return formatStr.length
         ? `, 'with:',` + formatStr.slice(0, formatStr.length)
