@@ -3,8 +3,8 @@ class A {
         console.log(
             'plus() called',
             'with:',
-            'a = [' + a + '],',
-            'b = [' + b + ']',
+            'a = [ ' + a + ' ],',
+            'b = [ ' + b + ' ]',
         )
         return a + b
     }
@@ -15,15 +15,15 @@ class B {
         console.log(
             'division() called',
             'with:',
-            'a = [' + a + '],',
-            'b = [' + b + ']',
+            'a = [ ' + a + ' ],',
+            'b = [ ' + b + ' ]',
         )
         return a / b
     }
 }
 
 function multiply(n) {
-    console.log('multiply() called', 'with:', 'n = [' + n + ']')
+    console.log('multiply() called', 'with:', 'n = [ ' + n + ' ]')
     return n * n
 }
 
@@ -31,7 +31,7 @@ function plus({
   a,
   b
 }) {
-  console.log('plus() called', 'with:', 'a = [' + a + '],', 'b = [' + b + ']');
+  console.log('plus() called', 'with:', 'a = [ ' + a + ' ],', 'b = [ ' + b + ' ]');
   return a + b;
 }
 

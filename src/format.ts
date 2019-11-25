@@ -1,4 +1,3 @@
-import stringify from '@bugsnag/safe-json-stringify'
 import { FileInfo, FunctionInfo } from '~/options'
 
 function insertComma(args: string[], idx: number): string {
@@ -17,10 +16,7 @@ export function defaultCallFormat(func: FunctionInfo) {
 
 export function defaultArgsFormat(args: string[]) {
     const formatStr = args.map(
-        (arg, idx) =>
-            `'${arg} = [ ' + ${
-                typeof arg === 'object' ? 'object' : arg
-            } + ' ]${insertComma(args, idx)}'`,
+        (arg, idx) => `'${arg} = [ ' + ${arg} + ' ]${insertComma(args, idx)}'`,
     )
     return formatStr.length
         ? `, 'with:',` + formatStr.slice(0, formatStr.length)
