@@ -1,6 +1,6 @@
 {
     "name": "babel-plugin-logger",
-    "version": "0.1.0",
+    "version": "0.8.0",
     "description": "Babel Plugin Logger",
     "repository": "https://github.com/wickedev/babel-plugin-logger",
     "author": "Ryan Yang",
@@ -9,8 +9,9 @@
     "module": "lib/index.es.js",
     "jsnext:main": "lib/index.es.js",
     "typings": "lib/index.d.ts",
+    "types": "lib",
     "scripts": {
-        "build": "rollup -c",
+        "build": "ttsc --project .",
         "lint": "eslint --ext .ts,.tsx src",
         "test": "run-s test:unit test:e2e",
         "test:unit": "jest --colors --coverage",
@@ -122,6 +123,7 @@
         "coverage": "^0.4.1",
         "coveralls": "^3.0.7",
         "cross-env": "^6.0.3",
+        "dts-generator": "^3.0.0",
         "eslint": "^6.6.0",
         "eslint-config-prettier": "^6.5.0",
         "eslint-plugin-prettier": "^3.1.1",
@@ -142,7 +144,9 @@
         "ts-node": "^8.4.1",
         "tsconfig-paths": "^3.9.0",
         "tslib": "^1.10.0",
-        "typescript": "^3.7.2"
+        "ttypescript": "^1.5.8",
+        "typescript": "^3.7.2",
+        "typescript-transform-paths": "^1.1.13"
     },
     "files": [
         "lib"

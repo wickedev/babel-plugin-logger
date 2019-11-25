@@ -11,7 +11,8 @@ import { FileInfo } from '~/options'
 export function getArrowFunctionName(
     path: NodePath<ArrowFunctionExpression>,
 ): string {
-    return (path?.parentPath?.node as any)?.key?.name ?? 'unknown'
+    const parentNode = path?.parentPath?.node as any
+    return parentNode?.id?.name ?? parentNode?.key?.name ?? 'anonymous'
 }
 
 export function getClassMethodName(path: NodePath<ClassMethod>): string {
@@ -32,17 +33,20 @@ export function getFileData(
     nodePath: NodePath<any>,
     state: any,
 ): Optional<FileInfo> {
-    const sourceFile = state?.file?.opts?.sourceFileName
+    const sourceRoot = state?.file?.opts?.root
+    const sourceName = state?.file?.opts?.filename
 
-    if (!sourceFile) {
+    if (!sourceName || !sourceRoot) {
         return
     }
 
-    const sourceFileData = path.parse(sourceFile)
+    const parsedPath = path.parse(sourceName)
+    const sourceDir = parsedPath.dir
+    const sourcePath = sourceDir.substring(sourceRoot.length, sourceDir.length)
 
     return {
-        name: sourceFileData.base,
-        path: sourceFileData.dir,
+        name: parsedPath.base,
+        path: sourcePath,
         line: nodePath?.node?.loc?.start?.line ?? -1,
     }
 }
