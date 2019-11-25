@@ -5,7 +5,7 @@ import {
     ClassMethod,
     FunctionDeclaration,
 } from '@babel/types'
-import { FuncData } from '~/model'
+import { FuncData } from '~/types'
 
 import { defaultOptions, Options } from '~/options'
 import {
@@ -23,10 +23,10 @@ class LoggerVisitor {
         nodePath: NodePath<FunctionDeclaration>,
         state: any,
     ) {
-        const funcData = {
+        const funcData: FuncData = {
             name: getFunctionDeclarationName(nodePath),
             args: getParamNames(nodePath),
-            fileData: getFileData(nodePath, state),
+            file: getFileData(nodePath, state),
         }
         const body: NodePath = nodePath.get('body')
         this.insertLogAtTop(body, funcData)
@@ -36,27 +36,27 @@ class LoggerVisitor {
         nodePath: NodePath<ArrowFunctionExpression>,
         state: any,
     ) {
-        const funcData = {
+        const funcData: FuncData = {
             name: getArrowFunctionName(nodePath),
             args: getParamNames(nodePath),
-            fileData: getFileData(nodePath, state),
+            file: getFileData(nodePath, state),
         }
         const body: NodePath = nodePath.get('body')
         this.insertLogAtTop(body, funcData)
     }
 
     public ClassMethod(nodePath: NodePath<ClassMethod>, state: any) {
-        const funcData = {
+        const funcData: FuncData = {
             name: getClassMethodName(nodePath),
             args: getParamNames(nodePath),
-            fileData: getFileData(nodePath, state),
+            file: getFileData(nodePath, state),
         }
         const body: NodePath = nodePath.get('body')
         this.insertLogAtTop(body, funcData)
     }
 
     private insertLogAtTop(nodePath: NodePath<any>, funcData: FuncData) {
-        const logger = this.logGeneration(funcData)
+        const logger = this.infoLogGeneration(funcData)
         ;(nodePath as any).unshiftContainer('body', logger)
     }
 
@@ -65,12 +65,16 @@ class LoggerVisitor {
         // TODO
     }
 
-    private logGeneration({ name, args, fileData }: FuncData) {
-        const tmpl = this.options.customTemplate!(
+    private infoLogGeneration({ name, args, file }: FuncData) {
+        if (!this.options.infoTemplate) {
+            return
+        }
+
+        const format = this.options.infoTemplate(
             {
-                name: fileData?.name ?? '',
-                path: fileData?.path ?? '',
-                line: fileData?.line ?? -1,
+                name: file?.name ?? '',
+                path: file?.path ?? '',
+                line: file?.line ?? -1,
             },
             {
                 name,
@@ -78,11 +82,11 @@ class LoggerVisitor {
             },
         )
 
-        return template(`${defaultOptions.loggerTemplate}(${tmpl});`)()
+        return template(format)()
     }
 }
 
-export const visitorFactory = (options: Options) => {
+export const visitorFactory = (options: Options = {}) => {
     const opts = Object.assign(defaultOptions, options)
     const visitor = new LoggerVisitor(opts)
 

@@ -14,14 +14,11 @@ test('babel transform example', async () => {
     const input = await fs.readFile(path.join(__dirname, 'fixtures/input.js'))
     const output = await fs.readFile(path.join(__dirname, 'fixtures/output.js'))
 
-    // @ts-ignore
     const ast = parse(input.toString(), { plugins: ['classProperties'] })
 
-    // @ts-ignore
-    traverse(ast, visitorFactory())
+    traverse(ast as any, visitorFactory() as any)
 
-    // @ts-ignore
-    const gen = generator(ast, { flowCommaSeparator: false })
+    const gen = generator(ast as any, { flowCommaSeparator: false } as any)
     expect(gen.code).toEqual(normalize(output.toString()))
 })
 

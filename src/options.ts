@@ -1,38 +1,30 @@
-import {
-    defaultArgsFormat,
-    defaultFileFormat,
-    defaultCallFormat,
-} from '~/format'
+import { defaultInfoTemplate, defaultErrorTemplate } from '~/format'
 
-export interface FileData {
+export interface FileInfo {
     readonly path: string
     readonly name: string
     readonly line: number
 }
 
-export interface FunctionData {
+export interface FunctionInfo {
     readonly name: string
     readonly args: string[]
 }
 
 export interface Options {
-    readonly printFile?:
-        | {
-              readonly path: boolean
-              readonly line: boolean
-          }
-        | boolean
-    readonly group?: boolean
-    readonly loggerTemplate?: string
-    readonly customTemplate?: (file: FileData, func: FunctionData) => string
+    readonly require?: string[]
+    readonly infoTemplate?:
+        | ((file: FileInfo, func: FunctionInfo) => string)
+        | false
+    readonly errorTemplate?:
+        | ((file: FileInfo, func: FunctionInfo) => string)
+        | false
 }
 
 export const defaultOptions: Options = {
-    printFile: true,
-    group: true,
-    loggerTemplate: 'console.log',
-    customTemplate: (file: FileData, func: FunctionData) =>
-        defaultFileFormat(file) +
-        defaultCallFormat(func) +
-        defaultArgsFormat(func.args),
+    require: [], // example: ['import logger from "winston"']
+    infoTemplate: (file: FileInfo, func: FunctionInfo) =>
+        defaultInfoTemplate(file, func),
+    errorTemplate: (file: FileInfo, func: FunctionInfo) =>
+        defaultErrorTemplate(file, func),
 }

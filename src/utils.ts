@@ -5,8 +5,8 @@ import {
     FunctionDeclaration,
 } from '@babel/types'
 import * as path from 'path'
-import { Optional } from '~/model'
-import { FileData } from '~/options'
+import { Optional } from '~/types'
+import { FileInfo } from '~/options'
 
 export function getArrowFunctionName(
     path: NodePath<ArrowFunctionExpression>,
@@ -31,7 +31,7 @@ export function getParamNames(path: NodePath<any>): string[] {
 export function getFileData(
     nodePath: NodePath<any>,
     state: any,
-): Optional<FileData> {
+): Optional<FileInfo> {
     const sourceFile = state?.file?.opts?.sourceFileName
 
     if (!sourceFile) {
