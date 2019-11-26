@@ -3,6 +3,7 @@ import {
     ArrowFunctionExpression,
     ClassMethod,
     FunctionDeclaration,
+    isClassDeclaration,
 } from '@babel/types'
 import * as path from 'path'
 import { Optional } from '~/types'
@@ -11,12 +12,21 @@ import { FileInfo } from '~/options'
 export function getArrowFunctionName(
     path: NodePath<ArrowFunctionExpression>,
 ): string {
+    const ancestorNode = path?.parentPath?.parentPath?.parentPath?.node
     const parentNode = path?.parentPath?.node as any
-    return parentNode?.id?.name ?? parentNode?.key?.name ?? 'anonymous'
+    const fn = parentNode?.id?.name ?? parentNode?.key?.name ?? 'anonymous'
+
+    if (isClassDeclaration(ancestorNode)) {
+        return `[${(ancestorNode as any)?.id?.name}] ${fn}`
+    }
+
+    return fn
 }
 
 export function getClassMethodName(path: NodePath<ClassMethod>): string {
-    return (path?.node?.key as any)?.name ?? 'unknown'
+    const ancestorNode = path?.parentPath?.parentPath?.node
+    const method = (path?.node?.key as any)?.name ?? 'unknown'
+    return `[${(ancestorNode as any)?.id?.name}] ${method}`
 }
 
 export function getFunctionDeclarationName(

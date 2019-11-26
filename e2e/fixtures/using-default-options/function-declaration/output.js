@@ -1,6 +1,6 @@
 class B {
   division(a, b) {
-    console.log('[input.js:2]', 'division() called', 'with:', 'a = [ ' + a + ' ],', 'b = [ ' + b + ' ]');
+    console.log('[input.js:2]', '[B] division() called', 'with:', 'a = [ ' + a + ' ],', 'b = [ ' + b + ' ]');
     return a / b;
   }
 

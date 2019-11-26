@@ -1,7 +1,7 @@
 class A {
     plus = (a, b) => {
         console.log(
-            'plus() called',
+            '[A] plus() called',
             'with:',
             'a = [ ' + a + ' ],',
             'b = [ ' + b + ' ]',
@@ -13,7 +13,7 @@ class A {
 class B {
     division(a, b) {
         console.log(
-            'division() called',
+            '[B] division() called',
             'with:',
             'a = [ ' + a + ' ],',
             'b = [ ' + b + ' ]',
