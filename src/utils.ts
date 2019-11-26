@@ -3,30 +3,37 @@ import {
     ArrowFunctionExpression,
     ClassMethod,
     FunctionDeclaration,
+    isArrowFunctionExpression,
     isClassDeclaration,
+    isClassMethod,
 } from '@babel/types'
 import * as path from 'path'
 import { Optional } from '~/types'
 import { FileInfo } from '~/options'
 
+export function getMetaData(path: NodePath<any>): string {
+    if (isClassMethod(path)) {
+        return (path?.parentPath?.parentPath?.node as any)?.id?.name
+    }
+
+    const ancestorNode = path?.parentPath?.parentPath?.parentPath?.node
+
+    if (isArrowFunctionExpression(path) && isClassDeclaration(ancestorNode)) {
+        return (ancestorNode as any)?.id?.name
+    }
+
+    return 'fn'
+}
+
 export function getArrowFunctionName(
     path: NodePath<ArrowFunctionExpression>,
 ): string {
-    const ancestorNode = path?.parentPath?.parentPath?.parentPath?.node
     const parentNode = path?.parentPath?.node as any
-    const fn = parentNode?.id?.name ?? parentNode?.key?.name ?? 'anonymous'
-
-    if (isClassDeclaration(ancestorNode)) {
-        return `[${(ancestorNode as any)?.id?.name}] ${fn}`
-    }
-
-    return fn
+    return parentNode?.id?.name ?? parentNode?.key?.name ?? 'anonymous'
 }
 
 export function getClassMethodName(path: NodePath<ClassMethod>): string {
-    const ancestorNode = path?.parentPath?.parentPath?.node
-    const method = (path?.node?.key as any)?.name ?? 'unknown'
-    return `[${(ancestorNode as any)?.id?.name}] ${method}`
+    return (path?.node?.key as any)?.name ?? 'unknown'
 }
 
 export function getFunctionDeclarationName(

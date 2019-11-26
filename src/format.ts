@@ -11,7 +11,7 @@ export function defaultFileFormat(file: FileInfo) {
 }
 
 export function defaultCallFormat(func: FunctionInfo) {
-    return `'${func.name}() called'`
+    return `'[${func.meta}] ${func.name}() called'`
 }
 
 export function defaultArgsFormat(args: string[]) {

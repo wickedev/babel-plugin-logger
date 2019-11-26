@@ -7,6 +7,7 @@ export interface FileInfo {
 }
 
 export interface FunctionInfo {
+    readonly meta: string // class name or 'function'
     readonly name: string
     readonly args: string[]
 }

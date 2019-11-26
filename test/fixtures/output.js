@@ -23,7 +23,7 @@ class B {
 }
 
 function multiply(n) {
-    console.log('multiply() called', 'with:', 'n = [ ' + n + ' ]')
+    console.log('[fn] multiply() called', 'with:', 'n = [ ' + n + ' ]')
     return n * n
 }
 
@@ -31,10 +31,10 @@ function plus({
   a,
   b
 }) {
-  console.log('plus() called', 'with:', 'a = [ ' + a + ' ],', 'b = [ ' + b + ' ]');
+  console.log('[fn] plus() called', 'with:', 'a = [ ' + a + ' ],', 'b = [ ' + b + ' ]');
   return a + b;
 }
 
 function fun() {
-    console.log('fun() called')
+    console.log('[fn] fun() called')
 }

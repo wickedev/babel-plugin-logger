@@ -14,6 +14,7 @@ import {
     getParamNames,
     getFunctionDeclarationName,
     getFileData,
+    getMetaData,
 } from '~/utils'
 
 class LoggerVisitor {
@@ -25,6 +26,7 @@ class LoggerVisitor {
     ) {
         const funcData: FuncData = {
             name: getFunctionDeclarationName(nodePath),
+            meta: getMetaData(nodePath),
             args: getParamNames(nodePath),
             file: getFileData(nodePath, state),
         }
@@ -38,6 +40,7 @@ class LoggerVisitor {
     ) {
         const funcData: FuncData = {
             name: getArrowFunctionName(nodePath),
+            meta: getMetaData(nodePath),
             args: getParamNames(nodePath),
             file: getFileData(nodePath, state),
         }
@@ -48,6 +51,7 @@ class LoggerVisitor {
     public ClassMethod(nodePath: NodePath<ClassMethod>, state: any) {
         const funcData: FuncData = {
             name: getClassMethodName(nodePath),
+            meta: getMetaData(nodePath),
             args: getParamNames(nodePath),
             file: getFileData(nodePath, state),
         }
@@ -65,7 +69,7 @@ class LoggerVisitor {
         // TODO
     }
 
-    private infoLogGeneration({ name, args, file }: FuncData) {
+    private infoLogGeneration({ name, meta, args, file }: FuncData) {
         if (!this.options.infoTemplate) {
             return
         }
@@ -77,6 +81,7 @@ class LoggerVisitor {
                 line: file?.line ?? -1,
             },
             {
+                meta,
                 name,
                 args,
             },
