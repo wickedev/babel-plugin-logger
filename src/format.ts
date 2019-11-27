@@ -23,6 +23,10 @@ export function defaultArgsFormat(args: string[]) {
         : ''
 }
 
+export function groupArgsFormat(args: string[]) {
+    return args.map(arg => `console.log('${arg} = [ ', ${arg}, ' ]');`).join('')
+}
+
 export function defaultInfoTemplate(file: FileInfo, func: FunctionInfo) {
     return `console.log(${defaultFileFormat(file) +
         defaultCallFormat(func) +
@@ -33,4 +37,15 @@ export function defaultErrorTemplate(file: FileInfo, func: FunctionInfo) {
     return `console.error(${defaultFileFormat(file) +
         defaultCallFormat(func) +
         defaultArgsFormat(func.args)});`
+}
+
+export function groupInfoTemplate(file: FileInfo, func: FunctionInfo) {
+    if (func.args.length <= 0) {
+        return defaultInfoTemplate(file, func)
+    }
+
+    const fileAndCallFormat = defaultFileFormat(file) + defaultCallFormat(func)
+    return `console.groupCollapsed(${fileAndCallFormat});
+            ${groupArgsFormat(func.args)}
+            console.groupEnd();`
 }

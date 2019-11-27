@@ -16,10 +16,10 @@ export interface Options {
     readonly require?: string[]
     readonly infoTemplate?:
         | ((file: FileInfo, func: FunctionInfo) => string)
-        | false
+        | 'group'
     readonly errorTemplate?:
         | ((file: FileInfo, func: FunctionInfo) => string)
-        | false
+        | 'group'
 }
 
 export const defaultOptions: Options = {

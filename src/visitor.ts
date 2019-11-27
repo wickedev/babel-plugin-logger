@@ -5,6 +5,7 @@ import {
     ClassMethod,
     FunctionDeclaration,
 } from '@babel/types'
+import { groupInfoTemplate } from '~/format'
 import { FuncData } from '~/types'
 
 import { defaultOptions, Options } from '~/options'
@@ -74,6 +75,10 @@ class LoggerVisitor {
             return
         }
 
+        if (typeof this.options.infoTemplate === 'string') {
+            return
+        }
+
         const format = this.options.infoTemplate(
             {
                 name: file?.name ?? '',
@@ -93,6 +98,12 @@ class LoggerVisitor {
 
 export const visitorFactory = (options: Options = {}) => {
     const opts = Object.assign(defaultOptions, options)
+
+    if (opts.infoTemplate === 'group') {
+        // noinspection JSUnnecessarySemicolon
+        ;(opts.infoTemplate as any) = groupInfoTemplate
+    }
+
     const visitor = new LoggerVisitor(opts)
 
     return {
