@@ -1,24 +1,3 @@
-class B {
-  division(a, b) {
-    console.log('[input.js:2]', '[B] division() called', 'with:', 'a = [ ' + a + ' ],', 'b = [ ' + b + ' ]');
-    return a / b;
-  }
-
-}
-
-function multiply(n) {
-  console.log('[input.js:7]', '[fn] multiply() called', 'with:', 'n = [ ' + n + ' ]');
-  return n * n;
-}
-
-function plus({
-  a,
-  b
-}) {
-  console.log('[input.js:11]', '[fn] plus() called', 'with:', 'a = [ ' + a + ' ],', 'b = [ ' + b + ' ]');
-  return a + b;
-}
-
 function fun() {
-  console.log('[input.js:15]', '[fn] fun() called');
+  console.log('[input.js:1]', '[fn] fun() called');
 }
