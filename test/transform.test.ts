@@ -6,17 +6,17 @@ import * as path from 'path'
 import { groupArgsFormat, groupInfoTemplate } from '~/format'
 import { visitorFactory } from '~/visitor'
 
+const appDirectory = fs.realpathSync(process.cwd())
+const resolveFixture = (relativePath: string) =>
+    path.resolve(appDirectory, 'test/fixtures', relativePath)
+
 function normalize(input: string): string {
     return generator(parse(input, { plugins: ['classProperties'] }) as any).code
 }
 
 test('default log insert', async () => {
-    const input = await fs.readFile(
-        path.join(__dirname, 'fixtures/default-log/input.js'),
-    )
-    const output = await fs.readFile(
-        path.join(__dirname, 'fixtures/default-log/output.js'),
-    )
+    const input = await fs.readFile(resolveFixture('default-log/input.js'))
+    const output = await fs.readFile(resolveFixture('default-log/output.js'))
 
     const ast = parse(input.toString(), { plugins: ['classProperties'] })
 
@@ -27,12 +27,8 @@ test('default log insert', async () => {
 })
 
 test('group log generation', async () => {
-    const input = await fs.readFile(
-        path.join(__dirname, 'fixtures/group-log/input.js'),
-    )
-    const output = await fs.readFile(
-        path.join(__dirname, 'fixtures/group-log/output.js'),
-    )
+    const input = await fs.readFile(resolveFixture('group-log/input.js'))
+    const output = await fs.readFile(resolveFixture('group-log/output.js'))
 
     const ast = parse(input.toString(), { plugins: ['classProperties'] })
 

@@ -7,12 +7,13 @@ module.exports = function({ compilers }) {
             '!src/**/?(*.)test.ts?(x)',
             '!src/**/?(*.)spec.ts?(x)',
             '!src/**/__tests__/**/*.ts?(x)',
+            {
+                pattern: "test/fixtures/**/*",
+                instrument: false,
+                load: false
+            }
         ],
-        tests: [
-            'src/**/?(*.)test.ts?(x)',
-            'src/**/?(*.)spec.ts?(x)',
-            'src/**/__tests__/**/*.ts?(x)',
-        ],
+        tests: ['test/**/*.ts?(x)'],
         env: {
             type: 'node',
             runner: 'node',
