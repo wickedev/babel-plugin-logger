@@ -15,7 +15,7 @@ function normalize(input: string): string {
 }
 
 test('default log insert', async () => {
-    const input = await fs.readFile(resolveFixture('default-log/input.js'))
+    const input = await fs.readFile(resolveFixture('default-log/code.js'))
     const output = await fs.readFile(resolveFixture('default-log/output.js'))
 
     const ast = parse(input.toString(), { plugins: ['classProperties'] })
@@ -27,7 +27,7 @@ test('default log insert', async () => {
 })
 
 test('group log generation', async () => {
-    const input = await fs.readFile(resolveFixture('group-log/input.js'))
+    const input = await fs.readFile(resolveFixture('group-log/code.js'))
     const output = await fs.readFile(resolveFixture('group-log/output.js'))
 
     const ast = parse(input.toString(), { plugins: ['classProperties'] })
@@ -52,9 +52,9 @@ test('groupArgsFormat test', () => {
 
 test('path sample', () => {
     const file = path.parse(
-        'using-default-options/function-declaration/input.js',
+        'using-default-options/function/code.js',
     )
 
-    expect(file.dir).toEqual('using-default-options/function-declaration')
-    expect(file.base).toEqual('input.js')
+    expect(file.dir).toEqual('using-default-options/function')
+    expect(file.base).toEqual('code.js')
 })

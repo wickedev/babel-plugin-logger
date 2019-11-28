@@ -11,9 +11,14 @@ module.exports = function({ compilers }) {
                 pattern: "test/fixtures/**/*",
                 instrument: false,
                 load: false
+            },
+            {
+                pattern: "e2e/fixtures/**/*",
+                instrument: false,
+                load: false
             }
         ],
-        tests: ['test/**/*.ts?(x)'],
+        tests: ['test/**/*.ts?(x)','e2e/**/*.ts?(x)'],
         env: {
             type: 'node',
             runner: 'node',

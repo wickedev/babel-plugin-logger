@@ -13,10 +13,7 @@
     "scripts": {
         "build": "ttsc --project .",
         "lint": "eslint --ext .ts,.tsx src",
-        "test": "run-s test:unit test:e2e",
-        "test:unit": "jest --colors --coverage",
-        "test:e2e": "run-s build test:e2e-run",
-        "test:e2e-run": "jest --config=e2e/jest.json  --colors",
+        "test": "jest --colors --coverage",
         "format": "prettier --write \"src/**/*\"",
         "prepare": "yarn run build"
     },
@@ -24,11 +21,14 @@
         "preset": "ts-jest",
         "testEnvironment": "node",
         "collectCoverageFrom": [
-            "src/**/*.{js,jsx,ts,tsx}"
+            "src/**/*.[jt]s?(x)"
         ],
         "moduleNameMapper": {
             "^~/(.*)$": "<rootDir>/src/$1"
-        }
+        },
+        "watchPathIgnorePatterns": [
+            "fixtures\\/[^/]+\\/(output|error)\\.js"
+        ]
     },
     "husky": {
         "hooks": {
@@ -70,7 +70,8 @@
                     "@typescript-eslint/no-unused-vars": 0,
                     "@typescript-eslint/no-explicit-any": 0,
                     "@typescript-eslint/no-non-null-assertion": 0,
-                    "@typescript-eslint/explicit-function-return-type": 0
+                    "@typescript-eslint/explicit-function-return-type": 0,
+                    "@typescript-eslint/no-var-requires": 0
                 },
                 "extends": [
                     "plugin:@typescript-eslint/eslint-recommended",
@@ -108,7 +109,6 @@
     },
     "devDependencies": {
         "@babel/generator": "^7.7.2",
-        "@babel/helper-plugin-test-runner": "^7.1.0",
         "@babel/parser": "^7.7.3",
         "@babel/plugin-proposal-class-properties": "^7.7.0",
         "@babel/traverse": "^7.7.2",
@@ -130,6 +130,7 @@
         "eslint-plugin-sonarjs": "^0.5.0",
         "husky": "^3.0.9",
         "jest": "^24.9.0",
+        "jest-file-snapshot": "^0.3.8",
         "lint-staged": "^9.4.2",
         "npm-run-all": "^4.1.5",
         "prettier": "^1.19.1",
@@ -155,6 +156,8 @@
         "@babel/helper-plugin-utils": "^7.0.0",
         "@babel/types": "^7.7.2",
         "@bugsnag/safe-json-stringify": "^5.0.0",
+        "babel-plugin-tester": "^8.0.0",
+        "babel-test": "^0.2.3",
         "date-fns": "^2.7.0",
         "fs-extra": "^8.1.0"
     }
