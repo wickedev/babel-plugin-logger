@@ -2,7 +2,7 @@ function plus({
   a,
   b
 }) {
-  console.groupCollapsed('[/e2e/fixtures/using-group-options/function-with-object-destructuring/code.js:1]', '[fn] plus() called');
+  console.groupCollapsed('[/e2e/fixtures/using-group-options/function-with-object-destructuring/code.js:1]', '[fn] plus() called with');
   console.log('a = [ ', a, ' ]');
   console.log('b = [ ', b, ' ]');
   console.groupEnd();

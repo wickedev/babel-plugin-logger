@@ -11,16 +11,16 @@ export function defaultFileFormat(file: FileInfo) {
 }
 
 export function defaultCallFormat(func: FunctionInfo) {
-    return `'[${func.meta}] ${func.name}() called'`
+    return `'[${func.meta}] ${func.name}() called${
+        func.args.length ? ' with' : ''
+    }'`
 }
 
 export function defaultArgsFormat(args: string[]) {
     const formatStr = args.map(
         (arg, idx) => `'${arg} = [ ' + ${arg} + ' ]${insertComma(args, idx)}'`,
     )
-    return formatStr.length
-        ? `, 'with:',` + formatStr.slice(0, formatStr.length)
-        : ''
+    return formatStr.length ? `,` + formatStr.slice(0, formatStr.length) : ''
 }
 
 export function groupArgsFormat(args: string[]) {
