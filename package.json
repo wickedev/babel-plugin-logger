@@ -1,6 +1,6 @@
 {
     "name": "babel-plugin-logger",
-    "version": "0.14.0",
+    "version": "0.15.0",
     "description": "Babel Plugin Logger",
     "repository": "https://github.com/wickedev/babel-plugin-logger",
     "author": "Ryan Yang",
@@ -15,7 +15,8 @@
         "lint": "eslint --ext .ts,.tsx src",
         "test": "jest --colors --coverage",
         "format": "prettier --write \"src/**/*\"",
-        "prepare": "yarn run build"
+        "prepare": "yarn run build",
+        "prepublish": "yarn run build"
     },
     "jest": {
         "preset": "ts-jest",
