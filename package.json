@@ -1,6 +1,6 @@
 {
     "name": "babel-plugin-logger",
-    "version": "0.16.0",
+    "version": "0.18.0",
     "description": "Babel Plugin Logger",
     "repository": "https://github.com/wickedev/babel-plugin-logger",
     "author": "Ryan Yang",
