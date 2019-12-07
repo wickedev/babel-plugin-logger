@@ -8,17 +8,17 @@ module.exports = function({ compilers }) {
             '!src/**/?(*.)spec.ts?(x)',
             '!src/**/__tests__/**/*.ts?(x)',
             {
-                pattern: "test/fixtures/**/*",
+                pattern: 'test/fixtures/**/*',
                 instrument: false,
-                load: false
+                load: false,
             },
             {
-                pattern: "e2e/fixtures/**/*",
+                pattern: 'e2e/fixtures/**/*',
                 instrument: false,
-                load: false
-            }
+                load: false,
+            },
         ],
-        tests: ['test/**/*.ts?(x)','e2e/**/*.ts?(x)'],
+        tests: ['test/**/*.ts?(x)', 'e2e/**/*.ts?(x)'],
         env: {
             type: 'node',
             runner: 'node',
@@ -29,5 +29,6 @@ module.exports = function({ compilers }) {
                 module: 'commonjs',
             }),
         },
+        trace: true,
     }
 }

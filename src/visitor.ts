@@ -91,15 +91,7 @@ class LoggerVisitor {
     }
 
     private logGeneration({ name, meta, args, file }: FuncData) {
-        if (!this.options.infoTemplate) {
-            return
-        }
-
-        if (typeof this.options.infoTemplate === 'string') {
-            return
-        }
-
-        const format = this.options.infoTemplate(
+        const format = (this.options.infoTemplate as any)(
             {
                 name: file?.name ?? '',
                 path: file?.path ?? '',
@@ -112,19 +104,11 @@ class LoggerVisitor {
             },
         )
 
-        return template(format)()
+        return template(format)({})
     }
 
     private errorGeneration({ name, meta, args, file }: FuncData) {
-        if (!this.options.errorTemplate) {
-            return
-        }
-
-        if (typeof this.options.errorTemplate === 'string') {
-            return
-        }
-
-        const format = this.options.errorTemplate(
+        const format = (this.options.errorTemplate as any)(
             {
                 name: file?.name ?? '',
                 path: file?.path ?? '',
@@ -137,7 +121,7 @@ class LoggerVisitor {
             },
         )
 
-        return template(format)()
+        return template(format)({})
     }
 
     private insertErrorAtCatch(nodePath: NodePath, funcData: FuncData) {

@@ -70,19 +70,17 @@ type Param = {
 }
 
 export function getParamNames(path: NodePath<any>): string[] {
-    return (
-        (path.node.params as Param[])?.flatMap((param: Param) => {
-            if (param.type === 'ObjectPattern') {
-                return (
-                    param?.properties!.map(
-                        property => property.value?.name ?? 'unknown',
-                    ) ?? []
-                )
-            }
+    return (path.node.params as Param[])?.flatMap((param: Param) => {
+        if (param.type === 'ObjectPattern') {
+            return (
+                param?.properties!.map(
+                    property => property.value?.name ?? 'unknown',
+                ) ?? []
+            )
+        }
 
-            return [param.name]
-        }) || []
-    )
+        return [param.name]
+    })
 }
 
 export function getParamNameOnCatch(path: NodePath<any>): string[] {
