@@ -44,9 +44,11 @@ class A {
 ## Sample
 
 ▼ group log template in browser
+
 ![group-sample-browser](./images/group-sample-browser.png)
 
 ▼ default log template in command line
+
 ![!default-sample-cli](./images/default-sample-cli.png)
 
 ## Installation
