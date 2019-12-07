@@ -1,6 +1,6 @@
 # babel-plugin-logger
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> 🚀 babel-plugin to automatically insert log code 🚀
+> 🚀 babel-plugin to automatically insert logging code 🚀
 
 ## Transform
 
@@ -21,7 +21,7 @@ class A {
     }
 }
 
-/* AFTER (automatically insert log code by babel-plugin-logger) */
+/* AFTER (automatically insert logging code by babel-plugin-logger) */
 
 function multiply(n) {
     console.log('[/path/file.js:1]', '[fn] multiply() called with', 'n = [ ' + n + ' ]');
