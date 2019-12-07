@@ -76,6 +76,7 @@ We welcome contributions to babel-plugin-logger in many forms
 
 - [ ] Enable custom logging such as winston or bunyan or any logger through [`require`](./src/options.ts#L26) option
 - [ ] Add a description of the [options](./src/options.ts#L25) to the README.md
+- [ ] Any feature you suggest!
 
 ## License
 
