@@ -51,9 +51,7 @@ test('groupArgsFormat test', () => {
 })
 
 test('path sample', () => {
-    const file = path.parse(
-        'using-default-options/function/code.js',
-    )
+    const file = path.parse('using-default-options/function/code.js')
 
     expect(file.dir).toEqual('using-default-options/function')
     expect(file.base).toEqual('code.js')

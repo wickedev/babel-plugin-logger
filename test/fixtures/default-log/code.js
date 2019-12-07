@@ -1,11 +1,23 @@
 class A {
     plus = (a, b) => {
+        try {
+        } catch {}
+
+        try {
+        } catch (e) {}
+
         return a + b
     }
 }
 
 class B {
     division(a, b) {
+        try {
+        } catch {}
+
+        try {
+        } catch (e) {}
+
         return a / b
     }
 }
@@ -18,4 +30,18 @@ function plus({ a, b }) {
     return a + b
 }
 
-function fun() {}
+function fun() {
+    try {
+    } catch {}
+
+    try {
+    } catch (e) {}
+}
+
+const arrow = () => {
+    try {
+    } catch {}
+
+    try {
+    } catch (e) {}
+}

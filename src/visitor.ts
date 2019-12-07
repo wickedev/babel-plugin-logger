@@ -16,6 +16,8 @@ import {
     getFunctionDeclarationName,
     getFileData,
     getMetaData,
+    getParamNameOnCatch,
+    getName,
 } from '~/utils'
 
 class LoggerVisitor {
@@ -60,8 +62,26 @@ class LoggerVisitor {
         this.insertLogAtTop(body, funcData)
     }
 
+    public CatchClause(nodePath: NodePath<ClassMethod>, state: any) {
+        const parent = nodePath.findParent(
+            pp =>
+                pp.isFunctionDeclaration() ||
+                pp.isClassMethod() ||
+                pp.isArrowFunctionExpression(),
+        )
+
+        const funcData: FuncData = {
+            name: getName(parent),
+            meta: getMetaData(parent),
+            args: getParamNameOnCatch(nodePath),
+            file: getFileData(nodePath, state),
+        }
+        const body: NodePath = nodePath.get('body')
+        this.insertErrorAtCatch(body, funcData)
+    }
+
     private insertLogAtTop(nodePath: NodePath<any>, funcData: FuncData) {
-        const logger = this.infoLogGeneration(funcData)
+        const logger = this.logGeneration(funcData)
         ;(nodePath as any).unshiftContainer('body', logger)
     }
 
@@ -70,7 +90,7 @@ class LoggerVisitor {
         // TODO
     }
 
-    private infoLogGeneration({ name, meta, args, file }: FuncData) {
+    private logGeneration({ name, meta, args, file }: FuncData) {
         if (!this.options.infoTemplate) {
             return
         }
@@ -93,6 +113,36 @@ class LoggerVisitor {
         )
 
         return template(format)()
+    }
+
+    private errorGeneration({ name, meta, args, file }: FuncData) {
+        if (!this.options.errorTemplate) {
+            return
+        }
+
+        if (typeof this.options.errorTemplate === 'string') {
+            return
+        }
+
+        const format = this.options.errorTemplate(
+            {
+                name: file?.name ?? '',
+                path: file?.path ?? '',
+                line: file?.line ?? -1,
+            },
+            {
+                meta,
+                name,
+                args,
+            },
+        )
+
+        return template(format)()
+    }
+
+    private insertErrorAtCatch(nodePath: NodePath, funcData: FuncData) {
+        const logger = this.errorGeneration(funcData)
+        ;(nodePath as any).unshiftContainer('body', logger)
     }
 }
 
@@ -121,6 +171,9 @@ export const visitorFactory = (options: Options = {}) => {
         },
         ClassMethod: (nodePath: NodePath<ClassMethod>, state: any) => {
             visitor.ClassMethod(nodePath, state)
+        },
+        CatchClause: (nodePath: NodePath<ClassMethod>, state: any) => {
+            visitor.CatchClause(nodePath, state)
         },
     }
 }

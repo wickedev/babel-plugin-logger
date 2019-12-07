@@ -3,43 +3,60 @@ import {
     ArrowFunctionExpression,
     ClassMethod,
     FunctionDeclaration,
-    isArrowFunctionExpression,
-    isClassDeclaration,
-    isClassMethod,
 } from '@babel/types'
 import * as path from 'path'
 import { Optional } from '~/types'
 import { FileInfo } from '~/options'
 
 export function getMetaData(path: NodePath<any>): string {
-    if (isClassMethod(path)) {
-        return (path?.parentPath?.parentPath?.node as any)?.id?.name
+    if (path.isClassMethod()) {
+        const parent: any = path.findParent(pp => pp.isClassDeclaration())
+        return parent?.node?.id?.name
+    } else if (path.isFunctionDeclaration()) {
+        return 'fn'
+    } else if (path.isArrowFunctionExpression()) {
+        const parent: any = path.findParent(pp => pp.isClassDeclaration())
+        return parent?.node?.id?.name ?? 'fn'
     }
-
-    const ancestorNode = path?.parentPath?.parentPath?.parentPath?.node
-
-    if (isArrowFunctionExpression(path) && isClassDeclaration(ancestorNode)) {
-        return (ancestorNode as any)?.id?.name
-    }
-
-    return 'fn'
-}
-
-export function getArrowFunctionName(
-    path: NodePath<ArrowFunctionExpression>,
-): string {
-    const parentNode = path?.parentPath?.node as any
-    return parentNode?.id?.name ?? parentNode?.key?.name ?? 'anonymous'
-}
-
-export function getClassMethodName(path: NodePath<ClassMethod>): string {
-    return (path?.node?.key as any)?.name ?? 'unknown'
+    return 'unknown'
 }
 
 export function getFunctionDeclarationName(
     path: NodePath<FunctionDeclaration>,
 ): string {
     return path?.node?.id?.name ?? 'unknown'
+}
+
+export function getArrowFunctionName(
+    path: NodePath<ArrowFunctionExpression>,
+): string {
+    const parent: any = path.findParent(
+        pp => pp.isClassProperty() || pp.isVariableDeclarator(),
+    )
+
+    if (parent.isClassProperty()) {
+        return parent?.node?.key?.name
+    } else if (parent.isVariableDeclarator()) {
+        return parent?.node?.id?.name
+    }
+
+    return 'anonymous'
+}
+
+export function getClassMethodName(path: NodePath<ClassMethod>): string {
+    return (path?.node?.key as any)?.name ?? 'unknown'
+}
+
+export function getName(path: NodePath<any>): string {
+    if (path.isFunctionDeclaration()) {
+        return getFunctionDeclarationName(path as any)
+    } else if (path.isArrowFunctionExpression()) {
+        return getArrowFunctionName(path as any)
+    } else if (path.isClassMethod()) {
+        return getClassMethodName(path as any)
+    }
+
+    return 'unknown'
 }
 
 type Param = {
@@ -53,17 +70,24 @@ type Param = {
 }
 
 export function getParamNames(path: NodePath<any>): string[] {
-    return (path.node.params as Param[]).flatMap((param: Param) => {
-        if (param.type === 'ObjectPattern') {
-            return (
-                param?.properties!.map(
-                    property => property.value?.name ?? 'unknown',
-                ) ?? []
-            )
-        }
+    return (
+        (path.node.params as Param[])?.flatMap((param: Param) => {
+            if (param.type === 'ObjectPattern') {
+                return (
+                    param?.properties!.map(
+                        property => property.value?.name ?? 'unknown',
+                    ) ?? []
+                )
+            }
 
-        return [param.name]
-    })
+            return [param.name]
+        }) || []
+    )
+}
+
+export function getParamNameOnCatch(path: NodePath<any>): string[] {
+    const eName = path.node?.param?.name
+    return eName ? [eName] : []
 }
 
 export function getFileData(

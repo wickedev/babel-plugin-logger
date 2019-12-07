@@ -2,7 +2,44 @@
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > babel-plugin-logger
 
-## Using
+## Transform
+
+```js
+/* BEFORE */
+
+function multiply(n) {
+    try { } catch (e) {
+    
+    }
+
+    return n * n
+}
+
+class A {
+    division(a, b) {
+        return a / b
+    }
+}
+
+/* AFTER (insert automatically by babel-plugin-logger) */
+
+function multiply(n) {
+    console.log('[/path/file.js:1]', '[fn] multiply() called with', 'n = [ ' + n + ' ]');
+    
+    try {} catch (e) {
+        console.error('[/path/file.js:3]', '[fn] multiply() catch with', 'e = [ ' + e + ' ]');
+    }
+    
+    return n * n;
+}
+
+class A {
+    division(a, b) {
+        console.log('[/path/file.js:10]', '[A] division() called with', 'a = [ ' + a + ' ],', 'b = [ ' + b + ' ]');
+        return a / b;
+    }
+}
+```
 
 ## Installation
 

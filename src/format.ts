@@ -16,6 +16,12 @@ export function defaultCallFormat(func: FunctionInfo) {
     }'`
 }
 
+export function defaultCatchFormat(func: FunctionInfo) {
+    return `'[${func.meta}] ${func.name}() catch${
+        func.args.length ? ' with' : ''
+    }'`
+}
+
 export function defaultArgsFormat(args: string[]) {
     const formatStr = args.map(
         (arg, idx) => `'${arg} = [ ' + ${arg} + ' ]${insertComma(args, idx)}'`,
@@ -35,7 +41,7 @@ export function defaultInfoTemplate(file: FileInfo, func: FunctionInfo) {
 
 export function defaultErrorTemplate(file: FileInfo, func: FunctionInfo) {
     return `console.error(${defaultFileFormat(file) +
-        defaultCallFormat(func) +
+        defaultCatchFormat(func) +
         defaultArgsFormat(func.args)});`
 }
 

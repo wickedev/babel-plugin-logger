@@ -4,6 +4,17 @@ class A {
         console.log('a = [ ', a, ' ]')
         console.log('b = [ ', b, ' ]')
         console.groupEnd()
+
+        try {
+        } catch {
+            console.error('[A] plus() catch')
+        }
+
+        try {
+        } catch (e) {
+            console.error('[A] plus() catch with', 'e = [ ' + e + ' ]')
+        }
+
         return a + b
     }
 }
@@ -14,6 +25,17 @@ class B {
         console.log('a = [ ', a, ' ]')
         console.log('b = [ ', b, ' ]')
         console.groupEnd()
+
+        try {
+        } catch {
+            console.error('[B] division() catch')
+        }
+
+        try {
+        } catch (e) {
+            console.error('[B] division() catch with', 'e = [ ' + e + ' ]')
+        }
+
         return a / b
     }
 }
@@ -35,4 +57,27 @@ function plus({ a, b }) {
 
 function fun() {
     console.log('[fn] fun() called')
+    try {
+    } catch {
+        console.error('[fn] fun() catch')
+    }
+
+    try {
+    } catch (e) {
+        console.error('[fn] fun() catch with', 'e = [ ' + e + ' ]')
+    }
+}
+
+const arrow = () => {
+    console.log('[fn] arrow() called')
+
+    try {
+    } catch {
+        console.error('[fn] arrow() catch')
+    }
+
+    try {
+    } catch (e) {
+        console.error('[fn] arrow() catch with', 'e = [ ' + e + ' ]')
+    }
 }
