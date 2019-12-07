@@ -62,7 +62,7 @@ module.exports = function (api) {
 
 ## License
 
-MIT © Ryan Yang
+[MIT © Ryan Yang](./LICENSE)
 
 
 [npm-image]: https://badge.fury.io/js/babel-plugin-logger.svg
