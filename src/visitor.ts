@@ -1,3 +1,4 @@
+import generator from '@babel/generator'
 import template from '@babel/template'
 import { NodePath } from '@babel/traverse'
 import {
@@ -41,8 +42,10 @@ class LoggerVisitor {
         nodePath: NodePath<ArrowFunctionExpression>,
         state: any,
     ) {
+        const name = getArrowFunctionName(nodePath)
+
         const funcData: FuncData = {
-            name: getArrowFunctionName(nodePath),
+            name,
             meta: getMetaData(nodePath),
             args: getParamNames(nodePath),
             file: getFileData(nodePath, state),
@@ -83,11 +86,6 @@ class LoggerVisitor {
     private insertLogAtTop(nodePath: NodePath<any>, funcData: FuncData) {
         const logger = this.logGeneration(funcData)
         ;(nodePath as any).unshiftContainer('body', logger)
-    }
-
-    // noinspection JSUnusedLocalSymbols
-    private insertLogAtReturn(body: NodePath, funcData: FuncData) {
-        // TODO
     }
 
     private logGeneration({ name, meta, args, file }: FuncData) {

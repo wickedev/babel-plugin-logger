@@ -1,3 +1,4 @@
+import generator from '@babel/generator'
 import { NodePath } from '@babel/traverse'
 import {
     ArrowFunctionExpression,
@@ -9,12 +10,12 @@ import { Optional } from '~/types'
 import { FileInfo } from '~/options'
 
 export function getMetaData(path: NodePath<any>): string {
-    if (path.isClassMethod()) {
+    if (path?.isClassMethod()) {
         const parent: any = path.findParent(pp => pp.isClassDeclaration())
         return parent?.node?.id?.name
-    } else if (path.isFunctionDeclaration()) {
+    } else if (path?.isFunctionDeclaration()) {
         return 'fn'
-    } else if (path.isArrowFunctionExpression()) {
+    } else if (path?.isArrowFunctionExpression()) {
         const parent: any = path.findParent(pp => pp.isClassDeclaration())
         return parent?.node?.id?.name ?? 'fn'
     }
@@ -34,9 +35,9 @@ export function getArrowFunctionName(
         pp => pp.isClassProperty() || pp.isVariableDeclarator(),
     )
 
-    if (parent.isClassProperty()) {
+    if (parent?.isClassProperty()) {
         return parent?.node?.key?.name
-    } else if (parent.isVariableDeclarator()) {
+    } else if (parent?.isVariableDeclarator()) {
         return parent?.node?.id?.name
     }
 
@@ -48,11 +49,11 @@ export function getClassMethodName(path: NodePath<ClassMethod>): string {
 }
 
 export function getName(path: NodePath<any>): string {
-    if (path.isFunctionDeclaration()) {
+    if (path?.isFunctionDeclaration()) {
         return getFunctionDeclarationName(path as any)
-    } else if (path.isArrowFunctionExpression()) {
+    } else if (path?.isArrowFunctionExpression()) {
         return getArrowFunctionName(path as any)
-    } else if (path.isClassMethod()) {
+    } else if (path?.isClassMethod()) {
         return getClassMethodName(path as any)
     }
 
