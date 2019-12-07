@@ -1,6 +1,6 @@
 # babel-plugin-logger
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> babel-plugin-logger
+> babel-plugin to automatically insert log code
 
 ## Transform
 
