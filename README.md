@@ -21,7 +21,7 @@ class A {
     }
 }
 
-/* AFTER (insert automatically by babel-plugin-logger) */
+/* AFTER (automatically insert log code by babel-plugin-logger) */
 
 function multiply(n) {
     console.log('[/path/file.js:1]', '[fn] multiply() called with', 'n = [ ' + n + ' ]');
