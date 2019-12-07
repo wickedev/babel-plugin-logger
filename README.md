@@ -80,7 +80,7 @@ module.exports = function (api) {
 }
 ```
 
-## Todo
+## ToDo
 
 We welcome contributions to babel-plugin-logger in many forms
 
