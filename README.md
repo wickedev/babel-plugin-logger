@@ -51,12 +51,22 @@ yarn add -D babel-plugin-logger
 
 ## Setup
 
+
+babel.config.js
 ```js
-// babel.config.js
 module.exports = function (api) {
     return {
-        "plugins": [ 'logger' ]
+        "plugins": [ "logger" ]
     }
+}
+```
+
+.babelrc
+```json
+{
+    "plugins": [
+        "logger"
+    ]
 }
 ```
 
