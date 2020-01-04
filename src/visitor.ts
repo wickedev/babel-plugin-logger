@@ -1,4 +1,3 @@
-import generator from '@babel/generator'
 import template from '@babel/template'
 import { NodePath } from '@babel/traverse'
 import {
@@ -84,6 +83,10 @@ class LoggerVisitor {
     }
 
     private insertLogAtTop(nodePath: NodePath<any>, funcData: FuncData) {
+        if (!nodePath['body']) {
+            return
+        }
+
         const logger = this.logGeneration(funcData)
         ;(nodePath as any).unshiftContainer('body', logger)
     }
@@ -123,6 +126,10 @@ class LoggerVisitor {
     }
 
     private insertErrorAtCatch(nodePath: NodePath, funcData: FuncData) {
+        if (!nodePath['body']) {
+            return
+        }
+
         const logger = this.errorGeneration(funcData)
         ;(nodePath as any).unshiftContainer('body', logger)
     }
