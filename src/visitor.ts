@@ -83,7 +83,7 @@ class LoggerVisitor {
     }
 
     private insertLogAtTop(nodePath: NodePath<any>, funcData: FuncData) {
-        if (!nodePath?.node?.body?.length) {
+        if (!nodePath?.node?.body) {
             return
         }
 
@@ -126,7 +126,7 @@ class LoggerVisitor {
     }
 
     private insertErrorAtCatch(nodePath: NodePath<any>, funcData: FuncData) {
-        if (!nodePath?.node?.body?.length) {
+        if (!nodePath?.node?.body) {
             return
         }
 
