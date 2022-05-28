@@ -154,6 +154,6 @@
         "babel-plugin-tester": "^8.0.0",
         "babel-test": "^0.2.3",
         "date-fns": "^2.7.0",
-        "fs-extra": "^8.1.0"
+        "fs-extra": "^9.0.0"
     }
 }
